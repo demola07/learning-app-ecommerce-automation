@@ -3,20 +3,42 @@
 - name: Deploy lamp stack application
   hosts: all
   become: yes
-  tasks:
-    - include_tasks: tasks/common.yml
+  roles:
+    - common
 
     # Install and Configure Database
 - name: Deploy lamp stack application
   hosts: lamp-db
-  gather_facts: yes
   become: yes
-  tasks:
-    - include_tasks: tasks/db.yml
+  roles:
+    - mysql
 
 - name: Deploy lamp stack application
   hosts: lampweb
-  gather_facts: yes
   become: yes
-  tasks:
-    - include_tasks: tasks/web.yml
+  roles:
+    - httpd-php
+
+
+# ---
+
+# - name: Deploy lamp stack application
+#   hosts: all
+#   become: yes
+#   tasks:
+#     - include_tasks: tasks/common.yml
+
+#     # Install and Configure Database
+# - name: Deploy lamp stack application
+#   hosts: lamp-db
+#   gather_facts: yes
+#   become: yes
+#   tasks:
+#     - include_tasks: tasks/db.yml
+
+# - name: Deploy lamp stack application
+#   hosts: lampweb
+#   gather_facts: yes
+#   become: yes
+#   tasks:
+#     - include_tasks: tasks/web.yml
